@@ -6,10 +6,10 @@ const bodyParser = require('body-parser');
 
 
 app.get("/", (req, res) =>{
-    
+    res.send("a")
 })
 
 
-app.listen(3001, ()=>{
+app.listen(3000, ()=>{
     console.log("server running")
 })
