@@ -21,7 +21,7 @@ app.get("/products", (req,res)=>{
     const category = req.query.category;
     const sort = req.query.sort;
     var products;
-    fs.readFile('products.json', 'utf8', (err, data) => {
+    fs.readFile('./products.json', 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             res.status(500).send('error');
