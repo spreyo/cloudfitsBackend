@@ -6,5 +6,8 @@
     "mime": "^4.0.7",
     "mime-db": "^1.54.0",
     "mime-types": "^3.0.1"
+  },
+  "scripts": {
+    "build": "npm install"
   }
 }
