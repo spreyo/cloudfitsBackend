@@ -8,7 +8,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.use('/images', express.static('images'));
+app.use(express.static('images'));
 
 
 app.get("/", (req, res) =>{
