@@ -3,12 +3,10 @@ const app = express()
 const fs = require('fs');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const path = require('path');
+
 app.use(cors());
 
 app.use(bodyParser.json());
-
-app.use(path.resolve("images"), express.static('images'));
 
 
 app.get("/", (req, res) =>{
@@ -21,7 +19,7 @@ app.get("/products", (req,res)=>{
     const category = req.query.category;
     const sort = req.query.sort;
     var products;
-    fs.readFile(path.resolve('products.json'), 'utf8', (err, data) => {
+    fs.readFile(path.resolve('./products.json'), 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             res.status(500).send('error');
