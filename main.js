@@ -16,7 +16,7 @@ app.get("/", (req, res) =>{
 
 app.get("/products", (req,res)=>{
     const count = req.query.count;
-    const category = req.query.category;
+    const category = req.query.category != "ALL" ? req.query.category : null;
     const sort = req.query.sort;
     var products;
     fs.readFile(path.resolve('./products.json'), 'utf8', (err, data) => {
