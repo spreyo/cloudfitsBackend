@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudfits Official API</title>
+</head>
+<body>
+    <h1>Welcome to the Cloudfits Official API</h1>
+    <p>This API provides access to various functionalities of the Cloudfits platform.</p>
+    
+    <h2>Endpoints</h2>
+    <ul>
+        <li>
+            <h3><a href="/products">Products</a></h3>
+            <p>Retrieve a list of products available on the Cloudfits platform.</p>
+            <p>Example Request: <code>GET /products</code></p>
+            <p>Query Parameters Available: <ul>
+                <li>count : number</li>
+                <li>sort : <code>'asc' | 'desc'</code></li>
+                <li>category : <a href="/categories">categories</a><code></code></li>
+            </ul></p>
+        </li>
+        <li>
+            <h3><a href="/categories">Categories</a></h3>
+            <p>Retrieve a list of product categories.</p>
+            <p>Example Request: <code>GET /categories</code></p>
+        </li>
+    </ul>
+
+
+    <footer>
+        <p>&copy; 2025 Cloudfits. All rights reserved.</p>
+    </footer>
+</body>
+</html>

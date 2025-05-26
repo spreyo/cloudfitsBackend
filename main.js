@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 
 app.get("/", (req, res) =>{
-    res.send("a")
+    res.sendFile(path.resolve('./index.html'))
 })    
 
 
@@ -26,7 +26,7 @@ app.get("/products", (req,res)=>{
             return;
         }
         let products = JSON.parse(data);
-
+        
         if(category){
             products = products.filter(product => product.category === req.query.category);
         }
@@ -46,7 +46,19 @@ app.get("/products", (req,res)=>{
         res.json(products);
 
     });
-
+app.get("/categories", (req, res)=>{
+    res.send([
+        "ALL",
+        "SHOES",
+        "JACKETS",
+        "HOODIES",
+        "SHORTS",
+        "SHIRTS",
+        "PANTS",
+        "JERSEYS",
+        "OTHERS",
+      ]);
+})
 
 })
 
