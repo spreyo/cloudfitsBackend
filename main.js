@@ -62,6 +62,60 @@ app.get("/categories", (req, res)=>{
 
 })
 
+// ADMIN
+app.get("/admin/", (req, res) => {
+    const payload = req.body;
+    console.log(req.header("authorization"))
+    console.log(process.env.AUTH + " <- auth")
+    if(req.header("Authorization") !== process.env.AUTH ){
+        return res.status(401).send("Unauthorized");
+    }
+    res.sendFile(path.resolve('./admin.html'))
+    
+})
+
+
+app.get("/admin/auth", (req, res) => {
+    console.log(req.header("Authorization"))
+    if(req.header("Authorization") != process.env.PASS){
+        return res.status(401).send("Unauthorized");
+    }
+    res.status(200).send("Authorized")
+})
+
+app.post("/admin/product", (req, res) => {
+    console.log(req.header("Authorization"))
+    if(req.header("Authorization") !== process.env.AUTH ){
+        return res.status(401).send("Unauthorized");
+    }
+    if(req.body == undefined){
+        return res.status(400).send("Bad Request");
+    }
+    
+    const newProduct = req.body;
+    const reqs = ["item_name", "image_path", "yuan", "eur", "usd", "link", "category"]
+    for (const req of reqs) {
+        if (!newProduct.hasOwnProperty(req)) {
+            return res.status(400).send(`Missing required field: ${req}`);
+        }
+    }
+    fs.readFile(path.resolve('./products.json'), 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error reading products file');
+        }
+        let products = JSON.parse(data);
+        products.push(newProduct);
+        fs.writeFile(path.resolve('./products.json'), JSON.stringify(products, null, 2), 'utf8', (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Error writing to products file');
+            }
+            res.status(201).send('Product added successfully');
+        });
+    });
+    
+})
 
 
 app.listen(3000, ()=>{
