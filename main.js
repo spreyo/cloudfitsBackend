@@ -18,7 +18,7 @@ app.get("/products", (req,res)=>{
     const count = req.query.count;
     const category = req.query.category != "ALL" ? req.query.category : null;
     const sort = req.query.sort;
-    var products;
+    const search = req.query.search;
     fs.readFile(path.resolve('./products.json'), 'utf8', (err, data) => {
         if (err) {
             console.error(err);
@@ -39,9 +39,17 @@ app.get("/products", (req,res)=>{
                 }
             });
         }
+
+        var filtered = products.filter((p) =>{
+            return p.item_name.toLowerCase().includes(search.toLowerCase())
+        });
+        products = filtered;
+
+
         if(count){
             products = products.slice(0, count);
         }
+        
 
         res.json(products);
 
@@ -61,6 +69,8 @@ app.get("/categories", (req, res)=>{
 })
 
 })
+
+
 
 // ADMIN
 app.get("/admin/", (req, res) => {
@@ -94,8 +104,10 @@ app.post("/admin/product", (req, res) => {
     
     const newProduct = req.body;
     const reqs = ["item_name", "image_path", "yuan", "eur", "usd", "link", "category"]
+    console.log(newProduct["item_name"])
     for (const req of reqs) {
         if (!newProduct.hasOwnProperty(req)) {
+            console.log(`Missing required field: ${req}`);
             return res.status(400).send(`Missing required field: ${req}`);
         }
     }
